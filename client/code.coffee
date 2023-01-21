@@ -22,4 +22,4 @@ class window.plugins.code
   @emit: (div, item) ->
     load -> div.append "<pre class='prettyprint'>#{prettyPrintOne(escape(item.text))}</pre>"
   @bind: (div, item) ->
-    load -> div.dblclick -> wiki.textEditor div, item
+    load -> div.on 'dblclick', () -> wiki.textEditor div, item
