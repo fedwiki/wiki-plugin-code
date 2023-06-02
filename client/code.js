@@ -15,7 +15,7 @@ async function emit($item, item) {
 
   HighlightJS = (await import('https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/+esm')).HighlightJS
 
-  $item.append(`<pre class='hljs'><code class='hljs'>${HighlightJS.highlightAuto(item.text).value}</code></pre>`)
+  $item.html(`<pre class='hljs'><code class='hljs'>${HighlightJS.highlightAuto(item.text).value}</code></pre>`)
 
 
 }
