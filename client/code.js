@@ -13,7 +13,7 @@ async function emit($item, item) {
     $('<link rel="stylesheet" href="/plugins/code/code.css">').appendTo("head")
   }
 
-  HighlightJS = (await import('https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/+esm')).HighlightJS
+  window.HighlightJS = (await import('https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/+esm')).HighlightJS
 
   $item.html(`<pre class='hljs'><code class='hljs'>${HighlightJS.highlightAuto(item.text).value}</code></pre>`)
 
