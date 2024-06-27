@@ -5,6 +5,8 @@
  * https://github.com/fedwiki/wiki-plugin-code/blob/master/LICENSE.txt
  */
 
+import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/es/highlight.min.js'
+
 async function emit($item, item) {
   if (!$("link[href='https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/github.min.css']").length) {
     $('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/github.min.css">').appendTo("head")
@@ -13,9 +15,7 @@ async function emit($item, item) {
     $('<link rel="stylesheet" href="/plugins/code/code.css">').appendTo("head")
   }
 
-  HighlightJS = (await import('https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/+esm')).HighlightJS
-
-  $item.html(`<pre class='hljs'><code class='hljs'>${HighlightJS.highlightAuto(item.text).value}</code></pre>`)
+  $item.html(`<pre class='hljs'><code class='hljs'>${hljs.highlightAuto(item.text).value}</code></pre>`)
 
 
 }
