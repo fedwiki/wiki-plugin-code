@@ -14,8 +14,11 @@ async function emit($item, item) {
   }
 
   window.HighlightJS = (await import('https://cdn.jsdelivr.net/npm/highlight.js@11/+esm')).HighlightJS
-
-  $item.html(`<pre class='hljs'><code class='hljs'>${HighlightJS.highlightAuto(item.text).value}</code></pre>`)
+  const show = code => $item.html(`<pre class='hljs'><code class='hljs'>${code}</code></pre>`)
+  if('language' in item)
+    show(HighlightJS.highlight(item.text,{language:item.language}).value)
+  else
+    show(HighlightJS.highlightAuto(item.text).value)
 }
 
 function bind($item, item) {
