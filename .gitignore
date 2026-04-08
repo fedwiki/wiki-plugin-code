@@ -1,2 +1,5 @@
+client/code.*
+coverage
 node_modules
 npm-debug.log
+meta-client.json
