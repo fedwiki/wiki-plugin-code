@@ -19,6 +19,7 @@
     "Paul Rodwell <paul.rodwell@btinternet.com>"
   ],
   "scripts": {
+    "copy-assets": "node scripts/copy-assets.cjs",
     "build": "npm run clean; npm run test; node scripts/build-client.js",
     "clean": "rm client/code.js client/code.js.map",
     "prettier:format": "prettier --write './**/*.js'",
@@ -32,6 +33,7 @@
     "eslint": "^10.2.0",
     "globals": "^17.4.0",
     "grunt-git-authors": "~3",
+    "highlight.js": "^11.11.1",
     "prettier": "^3.8.1"
   },
   "license": "MIT",
