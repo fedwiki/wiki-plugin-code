@@ -67,25 +67,29 @@ const editor = async ($item, item) => {
   }
 
   const focusoutHandler = event => {
-    console.log('***', $item)
-    $item.removeClass('textEditing')
-    $codeEditor.off()
-    const $page = $item.parents('.page:first')
-    if ($item.find('textarea').val().length > 0) {
-      const languageChanged = item.language !== $item.find('#code-language').val()
-      const codeChanged = item.text !== $item.find('textarea').val()
-      item.text = $item.find('textarea').val()
-      item.language = $item.find('#code-language').val()
-      console.log({ languageChanged, language: item.language, codeChanged, code: item.code })
+    const itemNode = event.currentTarget
+    const newFocusTarget = event.relatedTarget
+    const isStillInside = itemNode.contains(newFocusTarget)
+    if (!isStillInside) {
+      $item.removeClass('textEditing')
+      $codeEditor.off()
+      const $page = $item.parents('.page:first')
+      if ($item.find('textarea').val().length > 0) {
+        const languageChanged = item.language !== $item.find('#code-language').val()
+        const codeChanged = item.text !== $item.find('textarea').val()
+        item.text = $item.find('textarea').val()
+        item.language = $item.find('#code-language').val()
+        console.log({ languageChanged, language: item.language, codeChanged, code: item.code })
 
-      wiki.doPlugin($item.empty(), item)
-      if (item.language === original.language && item.text === original.text) return
-      wiki.pageHandler.put($page, { type: 'edit', id: item.id, item: item })
-    } else {
-      wiki.pageHandler.put($page, { type: 'remove', id: item.id })
-      const index = $('.item').index($item)
-      $item.remove()
-      wiki.renderFrom(index)
+        wiki.doPlugin($item.empty(), item)
+        if (item.language === original.language && item.text === original.text) return
+        wiki.pageHandler.put($page, { type: 'edit', id: item.id, item: item })
+      } else {
+        wiki.pageHandler.put($page, { type: 'remove', id: item.id })
+        const index = $('.item').index($item)
+        $item.remove()
+        wiki.renderFrom(index)
+      }
     }
     return
   }
