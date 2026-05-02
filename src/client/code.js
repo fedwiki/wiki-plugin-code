@@ -17,7 +17,8 @@ const emit = async ($item, item) => {
 
   let autoLanguage
   const extractLanguage = text => {
-    const { language: autoLanguage, value } = hljs.highlightAuto(item.text)
+    const { language: autoLanguage, value } = hljs.highlightAuto(text)
+    console.log('using detacted language:', autoLanguage)
     return value
   }
 
@@ -66,11 +67,10 @@ const editor = async ($item, item) => {
     }
   }
 
-  const focusoutHandler = event => {
-    const itemNode = event.currentTarget
-    const newFocusTarget = event.relatedTarget
-    const isStillInside = itemNode.contains(newFocusTarget)
+  const mousedownHandler = event => {
+    const isStillInside = $item[0].contains(event.target)
     if (!isStillInside) {
+      $(document).off('mousedown', mousedownHandler)
       $item.removeClass('textEditing')
       $codeEditor.off()
       const $page = $item.parents('.page:first')
@@ -112,7 +112,8 @@ const editor = async ($item, item) => {
       <input list="languages" id="code-language" name="language-choice" ${item.language ? `value="${item.language}"` : `placeholder="Code Language"`}>
     </div>`)
 
-  $item.on('focusout', focusoutHandler).on('keydown', keydownHandler)
+  $item.on('keydown', keydownHandler)
+  $(document).on('mousedown', mousedownHandler)
 }
 
 if (typeof window !== 'undefined' && window !== null) {
