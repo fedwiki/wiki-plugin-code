@@ -67,10 +67,10 @@ const editor = async ($item, item) => {
     }
   }
 
-  const mousedownHandler = event => {
+  const pointerdownHandler = event => {
     const isStillInside = $item[0].contains(event.target)
     if (!isStillInside) {
-      $(document).off('mousedown', mousedownHandler)
+      $(document).off('pointerdown', pointerdownHandler)
       $item.removeClass('textEditing')
       $codeEditor.off()
       const $page = $item.parents('.page:first')
@@ -79,8 +79,6 @@ const editor = async ($item, item) => {
         const codeChanged = item.text !== $item.find('textarea').val()
         item.text = $item.find('textarea').val()
         item.language = $item.find('#code-language').val()
-        console.log({ languageChanged, language: item.language, codeChanged, code: item.code })
-
         wiki.doPlugin($item.empty(), item)
         if (item.language === original.language && item.text === original.text) return
         wiki.pageHandler.put($page, { type: 'edit', id: item.id, item: item })
@@ -102,7 +100,7 @@ const editor = async ($item, item) => {
   }
 
   const $codeEditor = $(`
-    <textarea>${item.text}</textarea>`)
+    <textarea>${item.text || ''}</textarea>`)
 
   $item.html($codeEditor)
   $item.append(`<div id='code-options'></div>`)
@@ -113,7 +111,7 @@ const editor = async ($item, item) => {
     </div>`)
 
   $item.on('keydown', keydownHandler)
-  $(document).on('mousedown', mousedownHandler)
+  $(document).on('pointerdown', pointerdownHandler)
 }
 
 if (typeof window !== 'undefined' && window !== null) {
