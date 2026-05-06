@@ -3,3 +3,7 @@
   white-space: pre-wrap;
   padding: 6px;
 }
+
+.code #code-options {
+  float: right;
+}
