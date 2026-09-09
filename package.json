@@ -29,12 +29,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "esbuild": "^0.28.0",
-    "eslint": "^10.2.0",
-    "globals": "^17.4.0",
+    "esbuild": "^0.28.1",
+    "eslint": "^10.5.0",
+    "globals": "^17.7.0",
     "grunt-git-authors": "~3",
     "highlight.js": "^11.11.1",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.4"
   },
   "license": "MIT",
   "type": "module",
